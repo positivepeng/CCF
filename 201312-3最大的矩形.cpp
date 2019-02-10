@@ -5,9 +5,9 @@ using namespace std;
 int tree[3000];
 int num[1004];
 
-int construct(int i,int l,int r,int n) 
+int construct(int i,int l,int r,int n)  
 {
-	//cout << "i " << i << endl;
+	//构造线段树 
 	if(l == r ) return tree[i] = (l <= n-1? num[l] : 0);
 	else 
 	{
@@ -18,16 +18,11 @@ int construct(int i,int l,int r,int n)
 	}
 }
 
-void Print(int n) {
-	for(int i = 0; i < n; i++)	cout << tree[i] << " ";
-}
-
-int query(int qlow,int qhigh,int low,int high,int pos)
+int query(int qlow,int qhigh,int low,int high,int pos)   
 {
 	//qlow,qhigh: 要查询的边界 
 	//low,high:   总边界
 	//pos,根的位置
-	//cout << "pos" << pos;
 	if(qlow < low || qhigh > high || qlow > qhigh) return -1;
 	if(qlow == low && qhigh == high) return tree[pos];
 	if(qlow > high && qhigh < low )  return -1;
@@ -39,11 +34,10 @@ int query(int qlow,int qhigh,int low,int high,int pos)
 }
 
 int main() {
-/*
-	#1：计算指定区间的和，
-	#2：更新元素
-	时间复杂度(logn)
-*/
+
+	//用线段树logn查询区间[i,j]的最小值
+	//矩形的高  区间[i,j]最小值 
+	//矩形的宽  j-i+1 
 
 	memset(tree,0,sizeof(tree));
 

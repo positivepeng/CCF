@@ -1,38 +1,109 @@
 #include<iostream>
-using namespace std;
+#include<queue> 
+#include<vector>
+#include<string.h>
 typedef long long ll;
-ll map[105][105];
+using namespace std;
 
-ll x[105];
-ll y[105];
-int tag[105];
+
+struct node
+{
+	int id;
+	int length;
+	int left_nodes;
+	node(int id_,int length_,int left_nodes_) 
+	{
+		id = id_;
+		length = length_;
+		left_nodes = left_nodes_;
+	}
+};
+
+
+ll n,m,k,r;
+ll r2;
+typedef pair<ll,ll> P;
+bool canLink[205][205];
+int mark[205];
+vector<P> points;
+
+inline bool dis_less_r(P& p1,P& p2)
+{
+	return (p1.first - p2.first) * (p1.first - p2.first) + 
+			(p1.second - p2.second) * (p1.second - p2.second) <= r2;
+}
+
+int solve()
+{
+	queue<node> q;
+	memset(mark,0,sizeof(mark));
+	q.push(node(0,0,k));
+	mark[0] = 1;
+	
+	while(!q.empty())
+	{
+		
+		node v = q.front();
+		q.pop();
+
+//		cout << "v.id : " << v.id << endl;
+//		cout << "v.length : " << v.length << endl;
+//		cout << "v.left_nodes : " << v.left_nodes << endl;
+
+		int id = v.id;
+
+		for(int i = 0;i < n + m; i++)
+		{
+			if(canLink[i][id] && mark[i] == 0)
+			{
+				if(i >= n && v.left_nodes >= 1)
+				{
+					q.push(node(i,v.length+1,v.left_nodes-1));
+					mark[i] = 1;
+					if(i == 1)
+						return v.length + 1;
+				}
+				else
+				{
+					q.push(node(i,v.length+1,v.left_nodes));
+					mark[i] = 1;
+					if(i == 1)
+						return v.length + 1;
+				}
+			}
+		}
+		
+	}
+	
+}
+
 
 int main()
 {
-	int n,m,k,r,x,y,t;
 	cin >> n >> m >> k >> r;
+	r2 = r * r;
 	
-	for(int i = 0;i < n + m; i++)
+	ll x,y;
+	
+	for(int i = 0;i < n + m; i++)	
 	{
-		cin >> x[i] >> y[i];
-		if(i < n)
-			tag[i] = 1;
-		else 
-			tag[i] = 2;
+		cin >> x >> y;
+		points.push_back(make_pair(x,y));
 	}
 	
-	for(int i = 0;i < n + m; i++)
+	memset(canLink,0,sizeof(canLink));
+	
+	for(int i = 0;i < points.size(); i++)
 	{
-		for(int j = 0;j < n + m; j++)
+		for(int j = 0;j < points.size(); j++)
 		{
-			if(tag[i] == 1 && tag[i] == tag[j])
-				map[i][j] = 1;
-			else if(tag[i] == 2 && tag[i] == tag[j])
-				map[i][j] = 2;
-			else if(tag[i] != tag[j])
-				map[i][j] = 1;
+			if(i == j)  canLink[i][j] = false;
+			else canLink[i][j] = dis_less_r(points[i],points[j]);
+			//cout << canLink[i][j];
 		}
 	}
+	
+	cout << solve() - 1 << endl;
+	
+}
 
-		
- } 
