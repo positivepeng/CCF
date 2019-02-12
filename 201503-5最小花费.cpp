@@ -25,8 +25,8 @@ struct node
 };
 
 vector<vector<node> > G(10005);
+map<pair<int,int>,int> myMap; 
 int price[10005];
-node par[10005];
 int d[10005];
 bool used[10005];
 int n,m;
@@ -47,7 +47,6 @@ void dijkstra(int s)
 		}
 		
 		if(v == -1)   break;
-		//cout << "v " << v << endl;
 		used[v] = true;
 		
 		for(int i = 0;i < G[v].size(); i++)
@@ -58,7 +57,6 @@ void dijkstra(int s)
 				d[u] = d[v] + G[v][i].len;
 				par[u].to = v;
 				par[u].len = G[v][i].len;
-				//cout << "par " << u << " " << v << endl;
 			}
 		}
 	}
@@ -110,6 +108,7 @@ int main(int argc, char const *argv[])
 		cin >> u >> v >> e;
 		G[u].push_back(node(v,e));
 		G[v].push_back(node(u,e));
+		
 	}
 	
 	for(int i = 0;i < m; i++)

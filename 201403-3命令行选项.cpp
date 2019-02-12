@@ -68,7 +68,7 @@ int main()
 			string s2 = j < cs.size() - 1 ? cs[j+1] : "";
 			if(isCmd(s1))
 			{
-				if(!isCmd(s2) && s2 != "" && mark[s1[1]] == 1)
+				if(s2 != "" && mark[s1[1]] == 1)
 				{
 					arg[s1[1]] = s2;
 					j++;

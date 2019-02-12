@@ -1,83 +1,96 @@
-#include <iostream>
-#include <algorithm>
-#include <vector>
-#include <string>
-#include <queue>
-#include <cstring>
-#include <set>
-#include <map>
-#define N 10
-#define HOME 0
-#define DIRECTORY 1
-#define FILE 2
+#include<iostream>
+#include<cstring>
+#include<string>
+#include<vector>
 using namespace std;
 
-typedef struct DIR
+vector<string> split(const string& str, const string& delim)
 {
-	string par;
-	set<string> childs;
-	int type;
-}dir;
-
-map<string,dir> dirs;
-
-void init()
-{
-	dir home;
-	home.type = HOME:
-	home.par = "NONE";
-	home.childs.insert("d1");
-	home.childs.insert("d2");
-	dirs["/"] = home;
-	
-	dir d1;
-	d1.type = DIRECTORY;
-	d1.par = "/"
-	d1.childs.insert("f1");
-	d1.childs.insert("f2");
-	dirs["d1"] = d1;
-	
-	dir f1;
-	f1.type = FILE:
-	f1.par = "d1";
-	dirs["f1"] = f1;
-	
-	dir f2;
-	f2.type = FILE:
-	f2.par = "d1";
-	dirs["f2"] = f2;
-	
-	dir d2;
-	d2.type = DIRECTORY;
-	d2.par = "/";
-	d2.childs.insert("d3");
-	d2.childs.insert("d4");
-	d2.childs.insert("f4");
-	dirs["d2"] = d2;
-	
-	dir d3;
-	d3.type = DIRECTORY;
-	d3.par = "d2";
-	d3.childs.insert("f3");
-	dirs["d3"] = d3;
-	
-	dir d4;
-	d4.type = DIRECTORY;
-	d4.par = "d2";
-	d4.childs.insert("f1");
-	dirs["d4"] = d4;
-	
-	
-	
-	
-	
-	
-	
-	
-
+    vector<string> tokens;
+    size_t prev = 0, pos = 0;
+    do
+    {
+        pos = str.find(delim, prev);
+        if (pos == string::npos) pos = str.length();
+        string token = str.substr(prev, pos-prev);
+        if (!token.empty()) tokens.push_back(token);
+        prev = pos + delim.length();
+    }
+    while (pos < str.length() && prev < str.length());
+    return tokens;
 }
-int main(int argc, char const *argv[])
+
+
+string solve(string curr,string line)
 {
-	return 0;
+	// 一个路径经过正规化操作后，其指定的文件不变，
+	// 但是会变成一个不包含 . 和 .. 的绝对路径，
+	// 且不包含连续多个 / 符号。如果一个路径以 / 结尾
+	// 那么它代表的一定是一个目录，正规化操作要去掉结尾的 /。
+	// 若这个路径代表根目录，则正规化操作的结果是 /。
+	// 若路径为空字符串，则正规化操作的结果是当前目录。           <-----
+	string ans = "";
+	
+	if(line.size() == 0)
+		ans = ans + curr;
+	
+	vector<string> splits = split(line,"/");
+	
+	for(int i = 0;i < splits.size(); i++)
+		cout << splits[i] << " " << splits[i].size() << " ";
+	cout << endl;
+	
+	vector<int> valid(splits.size());
+	for(int i = 0;i < valid.size(); i++)
+		valid[i] = 1;
+	
+	if(splits.size() == 0)
+		cout << "/" << endl;
+	
+	//相对路径
+	if(line[0] == '.') 
+	{
+		
+	}
+	
+	
+	
+	return "";
+	
 }
+
+int main()
+{
+	int n;
+	string line,curr;
+	cin >> n;
+	cin >> curr;
+	cin.ignore();
+	
+	for(int i = 0;i < n; i++)
+	{
+		getline(cin,line);
+		cout << solve(curr,line) << endl;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

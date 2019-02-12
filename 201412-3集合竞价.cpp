@@ -54,7 +54,7 @@ void solve()
 		if(amount >= deal)
 		{	
 			deal = amount;
-			deal_p = (double)price / 100;
+			deal_p = (double)price / 1000;
 		}
 	}
 	
@@ -91,17 +91,17 @@ int main()
 		if(s.compare("buy") == 0)
 		{
 			cin >> price >> amount ;
-			ps.insert(price*100);
-			times[price*100] += 1;
-			a.push_back(line(BUY,price*100,amount,1));
+			ps.insert(price*1000);
+			times[price*1000] += 1;
+			a.push_back(line(BUY,price*1000,amount,1));
 		}
 		
 		if(s.compare("sell") == 0)
 		{
 			cin >> price >> amount ;
-			ps.insert(price*100);
-			times[price*100] += 1;
-			a.push_back(line(SELL,price*100,amount,1));
+			ps.insert(price*1000);
+			times[price*1000] += 1;
+			a.push_back(line(SELL,price*1000,amount,1));
 		}
 	}
 	

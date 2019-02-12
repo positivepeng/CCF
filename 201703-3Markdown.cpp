@@ -25,7 +25,6 @@ void deal_inline(vector<string>& lines)
 			pos = lines[i].find("_",pos+1);
 			if(pos == -1)
 				break;
-				
 			if(cnt % 2 == 0)
 			{
 				lines[i].replace(pos,1,"<em>");
@@ -36,7 +35,6 @@ void deal_inline(vector<string>& lines)
 				lines[i].replace(pos,1,"</em>");
 				cnt++;
 			}
-	
 		}
 		
 		//deal []()
@@ -167,7 +165,6 @@ int main(int argc, char const *argv[])
 {
 	string line;
 	vector<string> lines;
-	vector<string> ans;
 	
 	while(getline(cin,line) && line.compare("!!") != 0) 
 		lines.push_back(line);
